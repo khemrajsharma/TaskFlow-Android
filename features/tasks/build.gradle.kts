@@ -38,6 +38,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {

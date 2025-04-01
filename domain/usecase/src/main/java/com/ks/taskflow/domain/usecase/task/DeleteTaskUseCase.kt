@@ -18,7 +18,7 @@ class DeleteTaskUseCase @Inject constructor(
      */
     suspend operator fun invoke(id: String) {
         // Delete associated reminders first
-        reminderRepository.deleteRemindersForTask(id)
+        reminderRepository.deleteRemindersByTaskId(id)
         
         // Then delete the task
         taskRepository.deleteTask(id)

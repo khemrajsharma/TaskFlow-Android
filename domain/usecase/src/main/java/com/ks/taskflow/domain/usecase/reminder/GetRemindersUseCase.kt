@@ -16,14 +16,14 @@ class GetRemindersUseCase @Inject constructor(
      * Gets all reminders.
      */
     operator fun invoke(): Flow<List<Reminder>> {
-        return reminderRepository.getAllReminders()
+        return reminderRepository.getReminders()
     }
     
     /**
      * Gets reminders for a specific task.
      */
     operator fun invoke(taskId: String): Flow<List<Reminder>> {
-        return reminderRepository.getRemindersForTask(taskId)
+        return reminderRepository.getRemindersByTaskId(taskId)
     }
     
     /**

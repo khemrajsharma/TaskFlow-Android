@@ -39,6 +39,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain:model"))
+    implementation(project(":core:navigation"))
+    
     // Compose
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
@@ -53,4 +56,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.compose.ui.test)
     debugImplementation(libs.compose.ui.test.manifest)
+
+    // Navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
 } 

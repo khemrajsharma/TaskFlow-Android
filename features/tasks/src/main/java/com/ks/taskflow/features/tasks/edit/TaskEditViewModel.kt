@@ -29,7 +29,7 @@ class TaskEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val taskId: String? = savedStateHandle[TaskFlowDestinations.TASK_ID_ARG]
+    private val taskId: String? = savedStateHandle[TaskFlowDestinations.TASK_EDIT_ARG_TASK_ID]
     
     private val _uiState = MutableStateFlow(TaskEditUiState())
     val uiState: StateFlow<TaskEditUiState> = _uiState.asStateFlow()

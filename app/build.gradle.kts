@@ -51,6 +51,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {
@@ -59,10 +62,13 @@ dependencies {
     implementation(project(":core:utils"))
     implementation(project(":core:navigation"))
     implementation(project(":data:repository"))
+    implementation(project(":data:local"))
     implementation(project(":domain:usecase"))
     implementation(project(":features:tasks"))
     implementation(project(":features:reminders"))
     implementation(project(":features:settings"))
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
 
     // Core Android
     implementation(libs.androidx.core.ktx)
@@ -93,7 +99,13 @@ dependencies {
     
     // WorkManager
     implementation(libs.workmanager.ktx)
+    
+    // DataStore
+    implementation(libs.datastore.preferences)
 
+    // JSON Processing
+    implementation(libs.gson)
+    
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

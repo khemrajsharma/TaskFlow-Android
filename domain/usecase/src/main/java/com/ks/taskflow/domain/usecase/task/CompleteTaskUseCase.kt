@@ -16,6 +16,6 @@ class CompleteTaskUseCase @Inject constructor(
      * @param completed The new completion status.
      */
     suspend operator fun invoke(id: String, completed: Boolean) {
-        taskRepository.updateTaskCompletionStatus(id, completed)
+        taskRepository.updateTaskCompletion(id, completed)
     }
 } 

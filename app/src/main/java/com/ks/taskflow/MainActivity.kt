@@ -12,7 +12,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ks.taskflow.core.navigation.TaskFlowDestinations
@@ -22,6 +24,7 @@ import com.ks.taskflow.core.ui.components.TaskFlowScaffold
 import com.ks.taskflow.core.ui.theme.TaskFlowTheme
 import com.ks.taskflow.features.reminders.list.RemindersScreen
 import com.ks.taskflow.features.settings.SettingsScreen
+import com.ks.taskflow.features.settings.SettingsViewModel
 import com.ks.taskflow.features.tasks.detail.TaskDetailScreen
 import com.ks.taskflow.features.tasks.edit.TaskEditScreen
 import com.ks.taskflow.features.tasks.list.TasksScreen
@@ -42,7 +45,13 @@ class MainActivity : ComponentActivity() {
  */
 @Composable
 fun TaskFlowApp() {
-    TaskFlowTheme {
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val uiState by settingsViewModel.uiState.collectAsState()
+    
+    TaskFlowTheme(
+        darkTheme = uiState.darkThemeEnabled,
+        dynamicColor = uiState.dynamicColorsEnabled
+    ) {
         // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),

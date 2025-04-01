@@ -5,6 +5,7 @@ import com.ks.taskflow.domain.model.Task
 import com.ks.taskflow.domain.model.TaskCategory
 import com.ks.taskflow.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ class GetTasksUseCase @Inject constructor(
      * Gets all tasks as a Flow.
      */
     operator fun invoke(): Flow<List<Task>> {
-        return taskRepository.getAllTasks()
+        return taskRepository.getTasks()
     }
     
     /**
@@ -32,20 +33,32 @@ class GetTasksUseCase @Inject constructor(
         dueDateEnd: LocalDateTime? = null,
         searchQuery: String = ""
     ): Flow<List<Task>> {
-        return taskRepository.getFilteredTasks(
-            completed = completed,
-            priority = priority,
-            category = category,
-            dueDateStart = dueDateStart,
-            dueDateEnd = dueDateEnd,
-            searchQuery = searchQuery
-        )
+        var tasks = taskRepository.getTasks()
+        
+        // Apply filters
+        if (completed != null) {
+            tasks = taskRepository.getTasksByCompletionStatus(completed)
+        }
+        
+        if (priority != null) {
+            tasks = taskRepository.getTasksByPriority(priority)
+        }
+        
+        if (category != null) {
+            tasks = taskRepository.getTasksByCategory(category)
+        }
+        
+        if (searchQuery.isNotBlank()) {
+            tasks = taskRepository.searchTasks(searchQuery)
+        }
+        
+        return tasks
     }
     
     /**
      * Gets upcoming tasks due within the specified number of days.
      */
     fun getUpcoming(days: Int): Flow<List<Task>> {
-        return taskRepository.getUpcomingTasks(days)
+        return taskRepository.getUpcomingTasks()
     }
 } 

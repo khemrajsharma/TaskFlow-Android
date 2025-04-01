@@ -31,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {

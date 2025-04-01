@@ -32,9 +32,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain:model"))
+    implementation(project(":domain:repository"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.coroutines.core)
-    
+    implementation(libs.workmanager.hilt)
+    implementation(libs.workmanager.ktx)
+
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

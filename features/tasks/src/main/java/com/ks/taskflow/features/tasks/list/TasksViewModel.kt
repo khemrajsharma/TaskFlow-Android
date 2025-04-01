@@ -9,13 +9,15 @@ import com.ks.taskflow.domain.usecase.task.CompleteTaskUseCase
 import com.ks.taskflow.domain.usecase.task.DeleteTaskUseCase
 import com.ks.taskflow.domain.usecase.task.GetTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 /**
@@ -34,41 +36,57 @@ class TasksViewModel @Inject constructor(
     private val _filterCategory = MutableStateFlow<TaskCategory?>(null)
     private val _searchQuery = MutableStateFlow("")
     
-    // UI state
-    private val _isLoading = MutableStateFlow(false)
+    // Loading state
+    private val _isLoading = MutableStateFlow(true)
     private val _errorMessage = MutableStateFlow<String?>(null)
+    
+    // Create a combined flow of all filters
+    private val _filtersFlow = combine(
+        _filterCompleted,
+        _filterPriority,
+        _filterCategory,
+        _searchQuery
+    ) { completed, priority, category, query ->
+        FilterParams(
+            completed = completed,
+            priority = priority,
+            category = category,
+            query = query
+        )
+    }
+    
+    // Task data with filters applied
+    private val _tasksFlow = _filtersFlow.flatMapLatest { filters ->
+        getTasksUseCase().map { tasks ->
+            tasks.filter { task ->
+                (filters.completed == null || task.completed == filters.completed) &&
+                (filters.priority == null || task.priority == filters.priority) &&
+                (filters.category == null || task.category == filters.category) &&
+                (filters.query.isBlank() || task.title.contains(filters.query, ignoreCase = true) || 
+                    task.description.contains(filters.query, ignoreCase = true))
+            }
+        }
+    }
     
     /**
      * Combined state representing the UI state and task list.
      */
     val uiState: StateFlow<TasksUiState> = combine(
-        getTasksUseCase(),
-        _filterCompleted,
-        _filterPriority,
-        _filterCategory,
-        _searchQuery,
+        _tasksFlow,
+        _filtersFlow,
         _isLoading,
         _errorMessage
-    ) { tasks, completed, priority, category, query, isLoading, error ->
+    ) { tasks, filters, isLoading, errorMessage ->
         _isLoading.value = false
         
-        // Apply filters
-        val filteredTasks = tasks.filter { task ->
-            (completed == null || task.completed == completed) &&
-            (priority == null || task.priority == priority) &&
-            (category == null || task.category == category) &&
-            (query.isBlank() || task.title.contains(query, ignoreCase = true) || 
-                task.description.contains(query, ignoreCase = true))
-        }
-        
         TasksUiState(
-            tasks = filteredTasks,
+            tasks = tasks,
             isLoading = isLoading,
-            errorMessage = error,
-            filterCompleted = completed,
-            filterPriority = priority,
-            filterCategory = category,
-            searchQuery = query
+            errorMessage = errorMessage,
+            filterCompleted = filters.completed,
+            filterPriority = filters.priority,
+            filterCategory = filters.category,
+            searchQuery = filters.query
         )
     }.stateIn(
         scope = viewModelScope,
@@ -147,6 +165,16 @@ class TasksViewModel @Inject constructor(
         _searchQuery.value = ""
     }
 }
+
+/**
+ * Data class to hold filter parameters.
+ */
+private data class FilterParams(
+    val completed: Boolean?,
+    val priority: Priority?,
+    val category: TaskCategory?,
+    val query: String
+)
 
 /**
  * UI state for the tasks list screen.

@@ -46,14 +46,14 @@ fun AddTaskFab(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             expanded = true,
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(bottom = 80.dp, end = 16.dp, start = 16.dp, top = 16.dp)
         )
     } else {
         FloatingActionButton(
             onClick = onClick,
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(bottom = 80.dp, end = 16.dp, start = 16.dp, top = 16.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,

@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.ks.taskflow.data.local.converter.DateTimeConverters
+import com.ks.taskflow.domain.model.Reminder
 import java.time.LocalDateTime
 
 /**
@@ -31,7 +32,7 @@ data class ReminderEntity(
     val id: String,
     val taskId: String,
     val title: String,
-    val description: String,
+    val message: String,
     val time: LocalDateTime,
     val isEnabled: Boolean,
     val createdAt: LocalDateTime
@@ -45,7 +46,7 @@ data class ReminderEntity(
                 id = reminder.id,
                 taskId = reminder.taskId,
                 title = reminder.title,
-                description = reminder.message,
+                message = reminder.message,
                 time = reminder.time,
                 isEnabled = reminder.isEnabled,
                 createdAt = reminder.createdAt
@@ -61,7 +62,7 @@ data class ReminderEntity(
             id = id,
             taskId = taskId,
             title = title,
-            description = description,
+            message = message,
             time = time,
             isEnabled = isEnabled,
             createdAt = createdAt

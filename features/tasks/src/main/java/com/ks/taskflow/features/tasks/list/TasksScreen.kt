@@ -23,8 +23,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.TaskAlt
-import androidx.compose.material3.Chip
-import androidx.compose.material3.ChipDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -58,6 +56,7 @@ import com.ks.taskflow.core.ui.components.TaskCard
 import com.ks.taskflow.domain.model.Priority
 import com.ks.taskflow.domain.model.TaskCategory
 import kotlinx.coroutines.launch
+import com.ks.taskflow.core.ui.components.BottomNavSpacer
 
 /**
  * Main screen displaying the list of tasks.
@@ -263,6 +262,7 @@ fun TasksScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
+                    .padding(bottom = 100.dp)
             ) {
                 if (uiState.isLoading) {
                     CircularProgressIndicator(
@@ -299,7 +299,7 @@ fun TasksScreen(
                             )
                         }
                         // Add bottom space for FAB
-                        item { Spacer(modifier = Modifier.height(80.dp)) }
+                        item { BottomNavSpacer() }
                     }
                 }
             }

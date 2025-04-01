@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ks.taskflow.domain.model.Reminder
 import com.ks.taskflow.domain.usecase.reminder.DeleteReminderUseCase
-import com.ks.taskflow.domain.usecase.reminder.GetAllRemindersUseCase
+import com.ks.taskflow.domain.usecase.reminder.GetRemindersUseCase
 import com.ks.taskflow.domain.usecase.reminder.UpdateReminderStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class RemindersViewModel @Inject constructor(
-    private val getAllRemindersUseCase: GetAllRemindersUseCase,
+    private val getAllRemindersUseCase: GetRemindersUseCase,
     private val updateReminderStatusUseCase: UpdateReminderStatusUseCase,
     private val deleteReminderUseCase: DeleteReminderUseCase
 ) : ViewModel() {

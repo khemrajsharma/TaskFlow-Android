@@ -43,6 +43,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {
@@ -51,7 +54,8 @@ dependencies {
     implementation(project(":core:utils"))
     implementation(project(":domain:model"))
     implementation(project(":domain:usecase"))
-    
+    implementation(project(":domain:repository"))
+
     // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

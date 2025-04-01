@@ -34,6 +34,7 @@ class SaveReminderUseCase @Inject constructor(
             reminder
         }
         
-        return reminderRepository.saveReminder(reminderToSave)
+        reminderRepository.saveReminder(reminderToSave)
+        return reminderToSave.id
     }
 } 

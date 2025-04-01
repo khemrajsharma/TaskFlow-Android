@@ -29,6 +29,7 @@ class SaveTaskUseCase @Inject constructor(
             task.copy(modifiedAt = LocalDateTime.now())
         }
         
-        return taskRepository.saveTask(taskToSave)
+        taskRepository.saveTask(taskToSave)
+        return taskToSave.id
     }
 } 

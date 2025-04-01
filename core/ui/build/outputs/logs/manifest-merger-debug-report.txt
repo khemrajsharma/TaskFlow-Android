@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml:2:13-83
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml:2:13-83
+ADDED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml:2:13-83
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml:2:13-83
 	package
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml
 	xmlns:android
-		ADDED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml:2:23-81
+		ADDED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml:2:23-81
 uses-sdk
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml reason: use-sdk injection requested
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml reason: use-sdk injection requested
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml
 	android:targetSdkVersion
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml
 	android:minSdkVersion
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest2695877251644268857.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/core/ui/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest13735689618393195502.xml

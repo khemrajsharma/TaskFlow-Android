@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ks.taskflow.core.ui.components.EmptyState
 import com.ks.taskflow.core.ui.components.ReminderCard
+import com.ks.taskflow.core.ui.components.BottomNavSpacer
 import kotlinx.coroutines.launch
 
 /**
@@ -208,6 +209,7 @@ fun RemindersScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
+                    .padding(bottom = 100.dp)
             ) {
                 if (uiState.isLoading) {
                     CircularProgressIndicator(
@@ -247,7 +249,7 @@ fun RemindersScreen(
                             )
                         }
                         // Add bottom space for FAB
-                        item { Spacer(modifier = Modifier.height(80.dp)) }
+                        item { BottomNavSpacer() }
                     }
                 }
             }

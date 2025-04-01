@@ -2,7 +2,8 @@ package com.ks.taskflow.features.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ks.taskflow.features.settings.data.SettingsRepository
+import com.ks.taskflow.domain.repository.SettingsRepository
+import com.ks.taskflow.domain.usecase.demo.GenerateDummyDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,23 +18,28 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val generateDummyDataUseCase: GenerateDummyDataUseCase
 ) : ViewModel() {
+    
+    private val _dummyDataState = MutableStateFlow(false)
     
     /**
      * UI state for the settings screen.
      */
     val uiState: StateFlow<SettingsUiState> = combine(
-        settingsRepository.darkThemeFlow,
-        settingsRepository.dynamicColorsFlow,
-        settingsRepository.notificationsEnabledFlow,
-        settingsRepository.reminderNotificationsFlow
-    ) { darkTheme, dynamicColors, notificationsEnabled, reminderNotifications ->
+        settingsRepository.getDarkThemeEnabled(),
+        settingsRepository.getDynamicColorsEnabled(),
+        settingsRepository.getNotificationsEnabled(),
+        settingsRepository.getReminderNotificationsEnabled(),
+        _dummyDataState
+    ) { darkTheme, dynamicColors, notificationsEnabled, reminderNotifications, isDummyDataLoading ->
         SettingsUiState(
             darkThemeEnabled = darkTheme,
             dynamicColorsEnabled = dynamicColors,
             notificationsEnabled = notificationsEnabled,
-            reminderNotificationsEnabled = reminderNotifications
+            reminderNotificationsEnabled = reminderNotifications,
+            isDummyDataLoading = isDummyDataLoading
         )
     }.stateIn(
         scope = viewModelScope,
@@ -46,7 +52,7 @@ class SettingsViewModel @Inject constructor(
      */
     fun setDarkTheme(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.setDarkTheme(enabled)
+            settingsRepository.setDarkThemeEnabled(enabled)
         }
     }
     
@@ -55,7 +61,7 @@ class SettingsViewModel @Inject constructor(
      */
     fun setDynamicColors(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.setDynamicColors(enabled)
+            settingsRepository.setDynamicColorsEnabled(enabled)
         }
     }
     
@@ -73,7 +79,21 @@ class SettingsViewModel @Inject constructor(
      */
     fun setReminderNotifications(enabled: Boolean) {
         viewModelScope.launch {
-            settingsRepository.setReminderNotifications(enabled)
+            settingsRepository.setReminderNotificationsEnabled(enabled)
+        }
+    }
+    
+    /**
+     * Generates dummy tasks and reminders data.
+     */
+    fun generateDummyData() {
+        viewModelScope.launch {
+            _dummyDataState.value = true
+            try {
+                generateDummyDataUseCase()
+            } finally {
+                _dummyDataState.value = false
+            }
         }
     }
 }
@@ -85,5 +105,6 @@ data class SettingsUiState(
     val darkThemeEnabled: Boolean = false,
     val dynamicColorsEnabled: Boolean = true,
     val notificationsEnabled: Boolean = true,
-    val reminderNotificationsEnabled: Boolean = true
+    val reminderNotificationsEnabled: Boolean = true,
+    val isDummyDataLoading: Boolean = false
 )

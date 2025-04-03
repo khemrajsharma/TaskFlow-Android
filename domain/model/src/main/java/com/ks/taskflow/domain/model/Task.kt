@@ -1,6 +1,5 @@
 package com.ks.taskflow.domain.model
 
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 /**

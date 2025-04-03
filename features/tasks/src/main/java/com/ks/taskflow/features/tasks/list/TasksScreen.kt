@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,16 +48,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ks.taskflow.core.ui.components.AddTaskFab
+import com.ks.taskflow.core.ui.components.BottomNavSpacer
 import com.ks.taskflow.core.ui.components.EmptyState
 import com.ks.taskflow.core.ui.components.TaskCard
 import com.ks.taskflow.domain.model.Priority
 import com.ks.taskflow.domain.model.TaskCategory
 import kotlinx.coroutines.launch
-import com.ks.taskflow.core.ui.components.BottomNavSpacer
 
 /**
  * Main screen displaying the list of tasks.

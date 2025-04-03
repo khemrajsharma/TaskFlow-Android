@@ -65,6 +65,7 @@ fun TaskDetailScreen(
     onNavigateBack: () -> Unit,
     onEditTask: (String) -> Unit,
     onAddReminder: (String) -> Unit,
+    onReminderClick: (String) -> Unit = {},
     viewModel: TaskDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -327,6 +328,7 @@ fun TaskDetailScreen(
                                     onDeleteClick = {
                                         viewModel.deleteReminder(reminder.id)
                                     },
+                                    onClick = { onReminderClick(reminder.id) },
                                     modifier = Modifier.padding(vertical = 4.dp)
                                 )
                             }

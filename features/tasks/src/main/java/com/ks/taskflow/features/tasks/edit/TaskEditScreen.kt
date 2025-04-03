@@ -14,8 +14,11 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Label
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -29,7 +32,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ks.taskflow.domain.model.Priority
+import com.ks.taskflow.domain.model.TaskCategory
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.Instant
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -40,11 +55,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.ks.taskflow.domain.model.Priority
-import com.ks.taskflow.domain.model.TaskCategory
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 /**
  * Screen for creating and editing tasks.
@@ -288,13 +298,27 @@ private fun CategoryDropdown(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DueDatePicker(
     dueDate: LocalDateTime?,
     onDateSelected: (LocalDateTime?) -> Unit
 ) {
     var showDatePicker by remember { mutableStateOf(false) }
+    var showTimePicker by remember { mutableStateOf(false) }
     val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm")
+    
+    // Date picker state
+    val currentTime = dueDate ?: LocalDateTime.now()
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = currentTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    )
+    
+    // Time picker state
+    val timePickerState = rememberTimePickerState(
+        initialHour = currentTime.hour,
+        initialMinute = currentTime.minute
+    )
     
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -329,13 +353,76 @@ private fun DueDatePicker(
         }
     }
     
+    // Date picker dialog
     if (showDatePicker) {
-        // Use LaunchedEffect to safely set the date
-        LaunchedEffect(key1 = showDatePicker) {
-            val now = LocalDateTime.now()
-            onDateSelected(now.plusDays(1))
-            showDatePicker = false
+        DatePickerDialog(
+            onDismissRequest = { showDatePicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        datePickerState.selectedDateMillis?.let { dateMillis ->
+                            val selectedDate = Instant.ofEpochMilli(dateMillis)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate()
+                            
+                            val newDateTime = LocalDateTime.of(
+                                selectedDate,
+                                LocalTime.of(currentTime.hour, currentTime.minute)
+                            )
+                            
+                            // First update the date, then show time picker
+                            onDateSelected(newDateTime)
+                            showDatePicker = false
+                            showTimePicker = true
+                        }
+                    }
+                ) {
+                    Text("Next")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDatePicker = false }) {
+                    Text("Cancel")
+                }
+            }
+        ) {
+            DatePicker(state = datePickerState)
         }
+    }
+    
+    // Time picker dialog
+    if (showTimePicker) {
+        AlertDialog(
+            onDismissRequest = { showTimePicker = false },
+            title = { Text("Select Time") },
+            text = {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    TimePicker(state = timePickerState)
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val currentDateTime = dueDate ?: LocalDateTime.now()
+                        val selectedTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
+                        val newDateTime = LocalDateTime.of(
+                            currentDateTime.toLocalDate(),
+                            selectedTime
+                        )
+                        
+                        onDateSelected(newDateTime)
+                        showTimePicker = false
+                    }
+                ) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showTimePicker = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
 

@@ -243,6 +243,7 @@ fun RemindersScreen(
                                 onDeleteClick = {
                                     viewModel.deleteReminder(reminder.id)
                                 },
+                                onClick = { onReminderClick(reminder.id) },
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)
                                     .fillMaxWidth()

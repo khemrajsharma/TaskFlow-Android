@@ -9,6 +9,8 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -61,7 +63,7 @@ import com.ks.taskflow.core.ui.components.BottomNavSpacer
 /**
  * Main screen displaying the list of tasks.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun TasksScreen(
     onAddTask: () -> Unit,
@@ -171,9 +173,10 @@ fun TasksScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     
                     // Completion filters
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         FilterChip(
                             selected = uiState.filterCompleted == true,
@@ -213,9 +216,10 @@ fun TasksScreen(
                         style = MaterialTheme.typography.labelMedium,
                         modifier = Modifier.padding(vertical = 4.dp)
                     )
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Priority.values().forEach { priority ->
                             FilterChip(
@@ -238,9 +242,10 @@ fun TasksScreen(
                         style = MaterialTheme.typography.labelMedium,
                         modifier = Modifier.padding(vertical = 4.dp)
                     )
-                    Row(
+                    FlowRow(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         TaskCategory.values().forEach { category ->
                             FilterChip(

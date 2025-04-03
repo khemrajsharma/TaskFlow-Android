@@ -22,6 +22,8 @@ import com.ks.taskflow.core.navigation.TaskFlowNavHost
 import com.ks.taskflow.core.navigation.TaskFlowNavigationActions
 import com.ks.taskflow.core.ui.components.TaskFlowScaffold
 import com.ks.taskflow.core.ui.theme.TaskFlowTheme
+import com.ks.taskflow.features.reminders.detail.ReminderDetailScreen
+import com.ks.taskflow.features.reminders.edit.ReminderEditScreen
 import com.ks.taskflow.features.reminders.list.RemindersScreen
 import com.ks.taskflow.features.settings.SettingsScreen
 import com.ks.taskflow.features.settings.SettingsViewModel
@@ -92,7 +94,8 @@ fun TaskFlowApp() {
                         TaskDetailScreen(
                             onNavigateBack = { navigationActions.navigateBack() },
                             onEditTask = { navigationActions.navigateToTaskEdit(it) },
-                            onAddReminder = { navigationActions.navigateToReminderEdit(taskId = it) }
+                            onAddReminder = { navigationActions.navigateToReminderEdit(taskId = it) },
+                            onReminderClick = { reminderId -> navigationActions.navigateToReminderDetail(reminderId) }
                         )
                     },
                     onTaskEditScreen = { taskId ->
@@ -107,12 +110,16 @@ fun TaskFlowApp() {
                         )
                     },
                     onReminderDetailScreen = { reminderId ->
-                        // Will be implemented
-                        Text("Reminder Detail Screen")
+                        ReminderDetailScreen(
+                            onNavigateBack = { navigationActions.navigateBack() },
+                            onEditReminder = { navigationActions.navigateToReminderEdit(reminderId = it) },
+                            onNavigateToTask = { taskId -> navigationActions.navigateToTaskDetail(taskId) }
+                        )
                     },
                     onReminderEditScreen = { reminderId, taskId ->
-                        // Will be implemented
-                        Text("Reminder Edit Screen")
+                        ReminderEditScreen(
+                            onNavigateBack = { navigationActions.navigateBack() }
+                        )
                     },
                     onSettingsScreen = {
                         SettingsScreen()

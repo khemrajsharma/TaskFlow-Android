@@ -38,25 +38,25 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReminderCard(
+    modifier: Modifier = Modifier,
     reminder: Reminder,
     onEnableChange: (Boolean) -> Unit,
     onDeleteClick: () -> Unit,
-    onClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         onClick = onClick
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(12.dp)
         ) {
             // Header with title and switch
             Row(
@@ -91,7 +91,7 @@ fun ReminderCard(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = reminder.time.format(DateTimeFormatter.ofPattern("MMM dd, yyyy - HH:mm")),
+                    text = reminder.time.format(DateTimeFormatter.ofPattern("MMM d, yyyy - HH:mm")),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -137,7 +138,7 @@ fun TaskCard(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = dueDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy - HH:mm")),
+                        text = dueDate.format(DateTimeFormatter.ofPattern("MMM d, yyyy - HH:mm")),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

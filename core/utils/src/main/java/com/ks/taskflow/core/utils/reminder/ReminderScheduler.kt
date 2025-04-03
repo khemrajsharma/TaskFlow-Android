@@ -5,11 +5,11 @@ import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.ks.taskflow.core.utils.worker.ReminderConstants
 import com.ks.taskflow.core.utils.worker.ReminderWorker
 import com.ks.taskflow.domain.model.Reminder
 import java.time.Duration
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -34,14 +34,14 @@ class ReminderScheduler @Inject constructor(
         val workRequestName = "reminder_${reminder.id}"
         
         val inputData = Data.Builder()
-            .putString(REMINDER_ID_KEY, reminder.id)
-            .putString(TASK_ID_KEY, reminder.taskId)
+            .putString(ReminderConstants.REMINDER_ID_KEY, reminder.id)
+            .putString(ReminderConstants.TASK_ID_KEY, reminder.taskId)
             .build()
         
         val reminderWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
             .setInitialDelay(delay.seconds, TimeUnit.SECONDS)
             .setInputData(inputData)
-            .addTag(TAG_REMINDER)
+            .addTag(ReminderConstants.TAG_REMINDER)
             .addTag(reminder.id)
             .build()
         
@@ -57,12 +57,12 @@ class ReminderScheduler @Inject constructor(
      */
     fun scheduleRemindersForTask(taskId: String) {
         val inputData = Data.Builder()
-            .putString(TASK_ID_KEY, taskId)
+            .putString(ReminderConstants.TASK_ID_KEY, taskId)
             .build()
         
         val refreshWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
             .setInputData(inputData)
-            .addTag(TAG_REFRESH)
+            .addTag(ReminderConstants.TAG_REFRESH)
             .addTag(taskId)
             .build()
         
@@ -88,17 +88,9 @@ class ReminderScheduler @Inject constructor(
      */
     fun scheduleReminderCheck() {
         val checkWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
-            .addTag(TAG_CHECK)
+            .addTag(ReminderConstants.TAG_CHECK)
             .build()
         
         workManager.enqueue(checkWorkRequest)
-    }
-    
-    companion object {
-        private const val TAG_REMINDER = "reminder"
-        private const val TAG_REFRESH = "refresh"
-        private const val TAG_CHECK = "check"
-        private const val REMINDER_ID_KEY = "reminder_id"
-        private const val TASK_ID_KEY = "task_id"
     }
 } 

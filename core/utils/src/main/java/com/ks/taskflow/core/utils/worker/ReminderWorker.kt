@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.ks.taskflow.core.permission.NotificationPermissionManager
 import com.ks.taskflow.core.utils.R
 import com.ks.taskflow.domain.model.Reminder
 import com.ks.taskflow.domain.repository.ReminderRepository
@@ -18,7 +19,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 /**
@@ -29,22 +29,22 @@ class ReminderWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted private val workerParams: WorkerParameters,
     private val reminderRepository: ReminderRepository,
-    private val taskRepository: TaskRepository
+    private val taskRepository: TaskRepository,
+    private val notificationPermissionManager: NotificationPermissionManager
 ) : CoroutineWorker(context, workerParams) {
-    
-    companion object {
-        private const val CHANNEL_ID = "TaskFlow_Reminders"
-        private const val REMINDER_ID_KEY = "reminder_id"
-        private const val TASK_ID_KEY = "task_id"
-    }
     
     /**
      * Performs the background check for upcoming reminders and shows notifications.
      */
     override suspend fun doWork(): Result {
+        // Check if notification permission is granted
+        if (!notificationPermissionManager.hasNotificationPermission()) {
+            return Result.success() // Skip showing notification but mark as success
+        }
+        
         // Extract parameters
-        val reminderId = workerParams.inputData.getString(REMINDER_ID_KEY)
-        val taskId = workerParams.inputData.getString(TASK_ID_KEY)
+        val reminderId = workerParams.inputData.getString(ReminderConstants.REMINDER_ID_KEY)
+        val taskId = workerParams.inputData.getString(ReminderConstants.TASK_ID_KEY)
         
         // Check if the reminder is still active
         if (reminderId != null) {
@@ -96,11 +96,11 @@ class ReminderWorker @AssistedInject constructor(
         // Create notification channel for Android O and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEL_ID,
-                "TaskFlow Reminders",
+                ReminderConstants.CHANNEL_ID,
+                ReminderConstants.CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
-                description = "Reminders for your tasks"
+                description = ReminderConstants.CHANNEL_DESCRIPTION
                 enableVibration(true)
             }
             notificationManager.createNotificationChannel(channel)
@@ -126,7 +126,7 @@ class ReminderWorker @AssistedInject constructor(
         )
         
         // Build the notification
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, ReminderConstants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(taskTitle)
             .setContentText(reminder.title)

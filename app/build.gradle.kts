@@ -65,6 +65,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:permission"))
     implementation(project(":data:repository"))
     implementation(project(":data:local"))
     implementation(project(":domain:usecase"))
@@ -87,6 +88,9 @@ dependencies {
     implementation(libs.compose.material.icons)
     implementation(libs.compose.activity)
     debugImplementation(libs.compose.ui.tooling)
+    
+    // Permissions
+    implementation(libs.accompanist.permissions)
     
     // Architecture Components
     implementation(libs.lifecycle.runtime.ktx)

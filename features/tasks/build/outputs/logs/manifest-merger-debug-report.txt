@@ -1,16 +1,16 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml:2:13-83
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml:2:13-83
+ADDED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml:2:13-83
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml:2:13-83
 	package
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml
 	xmlns:android
-		ADDED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml:2:23-81
+		ADDED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml:2:23-81
 uses-sdk
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml reason: use-sdk injection requested
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml
-INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml reason: use-sdk injection requested
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml
+INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml
 	android:targetSdkVersion
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml
 	android:minSdkVersion
-		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10475428670913433006.xml
+		INJECTED from /Users/khemraj/CascadeProjects/TaskFlow/features/tasks/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest17128753852245048555.xml

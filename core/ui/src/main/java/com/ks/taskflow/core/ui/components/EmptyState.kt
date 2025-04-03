@@ -30,12 +30,12 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun EmptyState(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     title: String,
     message: String,
     actionLabel: String? = null,
-    onActionClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    onActionClick: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier

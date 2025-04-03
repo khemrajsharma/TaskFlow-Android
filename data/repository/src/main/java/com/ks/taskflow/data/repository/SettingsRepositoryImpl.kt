@@ -24,7 +24,7 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getDarkThemeEnabled(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.DARK_THEME] ?: false
+            preferences[PreferencesKeys.DARK_THEME] == true
         }
     }
 
@@ -36,7 +36,7 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getDynamicColorsEnabled(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.DYNAMIC_COLORS] ?: true
+            preferences[PreferencesKeys.DYNAMIC_COLORS] != false
         }
     }
 
@@ -48,7 +48,7 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getNotificationsEnabled(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.NOTIFICATIONS] ?: true
+            preferences[PreferencesKeys.NOTIFICATIONS] != false
         }
     }
 
@@ -64,7 +64,7 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getReminderNotificationsEnabled(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.REMINDER_NOTIFICATIONS] ?: true
+            preferences[PreferencesKeys.REMINDER_NOTIFICATIONS] != false
         }
     }
 

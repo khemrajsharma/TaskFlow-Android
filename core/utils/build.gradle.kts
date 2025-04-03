@@ -34,6 +34,7 @@ android {
 dependencies {
     implementation(project(":domain:model"))
     implementation(project(":domain:repository"))
+    implementation(project(":core:permission"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.coroutines.core)

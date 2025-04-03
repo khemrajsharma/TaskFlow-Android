@@ -180,7 +180,7 @@ fun ReminderEditScreen(
             title = { Text("Repeat Options") },
             text = {
                 Column {
-                    RepeatInterval.values().forEach { interval ->
+                    RepeatInterval.entries.forEach { interval ->
                         androidx.compose.material3.RadioButton(
                             selected = uiState.repeatInterval == interval,
                             onClick = {

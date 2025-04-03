@@ -1,11 +1,5 @@
 package com.ks.taskflow.core.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -27,9 +21,9 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun AddTaskFab(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    extended: Boolean = true,
-    modifier: Modifier = Modifier
+    extended: Boolean = true
 ) {
     if (extended) {
         ExtendedFloatingActionButton(

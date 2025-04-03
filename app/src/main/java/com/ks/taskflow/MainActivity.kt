@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ks.taskflow.core.navigation.TaskFlowDestinations
 import com.ks.taskflow.core.navigation.TaskFlowNavHost
 import com.ks.taskflow.core.navigation.TaskFlowNavigationActions
+import com.ks.taskflow.core.permission.NotificationPermissionHandler
 import com.ks.taskflow.core.ui.components.TaskFlowScaffold
 import com.ks.taskflow.core.ui.theme.TaskFlowTheme
 import com.ks.taskflow.features.reminders.detail.ReminderDetailScreen
@@ -59,6 +60,9 @@ fun TaskFlowApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
+            // Add notification permission handler
+            NotificationPermissionHandler()
+            
             val navController = rememberNavController()
             val navigationActions = remember(navController) {
                 TaskFlowNavigationActions(navController)

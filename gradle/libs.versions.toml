@@ -20,6 +20,7 @@ workManager = "2.9.0"
 datastore = "1.0.0"
 ksp = "2.1.10-1.0.31"
 gson = "2.10.1"
+desugaring = "2.0.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +29,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+desugaring-jdk = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugaring" }
 
 # Compose
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }

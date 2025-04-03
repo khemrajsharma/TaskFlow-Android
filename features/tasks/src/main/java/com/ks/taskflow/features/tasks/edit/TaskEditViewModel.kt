@@ -34,9 +34,15 @@ class TaskEditViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(TaskEditUiState())
     val uiState: StateFlow<TaskEditUiState> = _uiState.asStateFlow()
     
+    // Store the initial state to detect changes
+    private var initialState = TaskEditUiState()
+    
     init {
         if (taskId != null) {
             loadTask(taskId)
+        } else {
+            // For a new task, consider it valid as long as title is not blank
+            validateFields()
         }
     }
     
@@ -49,18 +55,23 @@ class TaskEditViewModel @Inject constructor(
             try {
                 val task = getTaskByIdUseCase(taskId)
                 if (task != null) {
-                    _uiState.update {
-                        it.copy(
-                            title = task.title,
-                            description = task.description,
-                            priority = task.priority,
-                            category = task.category,
-                            dueDate = task.dueDate,
-                            tags = task.tags.joinToString(", "),
-                            isLoading = false,
-                            isNewTask = false
-                        )
-                    }
+                    val updatedState = TaskEditUiState(
+                        title = task.title,
+                        description = task.description,
+                        priority = task.priority,
+                        category = task.category,
+                        dueDate = task.dueDate,
+                        tags = task.tags.joinToString(", "),
+                        isLoading = false,
+                        isNewTask = false
+                    )
+                    
+                    // Save the initial state for comparison
+                    initialState = updatedState
+                    
+                    _uiState.update { updatedState }
+                    // Validate after loading (ensures the "isValid" flag is set correctly)
+                    validateFields()
                 } else {
                     _uiState.update {
                         it.copy(
@@ -93,6 +104,7 @@ class TaskEditViewModel @Inject constructor(
      */
     fun updateDescription(description: String) {
         _uiState.update { it.copy(description = description) }
+        validateFields()
     }
     
     /**
@@ -100,6 +112,7 @@ class TaskEditViewModel @Inject constructor(
      */
     fun updatePriority(priority: Priority) {
         _uiState.update { it.copy(priority = priority) }
+        validateFields()
     }
     
     /**
@@ -107,6 +120,7 @@ class TaskEditViewModel @Inject constructor(
      */
     fun updateCategory(category: TaskCategory) {
         _uiState.update { it.copy(category = category) }
+        validateFields()
     }
     
     /**
@@ -114,6 +128,7 @@ class TaskEditViewModel @Inject constructor(
      */
     fun updateDueDate(dueDate: LocalDateTime?) {
         _uiState.update { it.copy(dueDate = dueDate) }
+        validateFields()
     }
     
     /**
@@ -121,13 +136,31 @@ class TaskEditViewModel @Inject constructor(
      */
     fun updateTags(tags: String) {
         _uiState.update { it.copy(tags = tags) }
+        validateFields()
     }
     
     /**
      * Validates the form fields.
      */
     private fun validateFields() {
-        val isValid = uiState.value.title.isNotBlank()
+        val currentState = uiState.value
+        
+        // For all tasks, title must not be blank
+        var isValid = currentState.title.isNotBlank()
+        
+        // For existing tasks, also check if something has changed
+        if (!currentState.isNewTask) {
+            val hasChanges = currentState.title != initialState.title ||
+                    currentState.description != initialState.description ||
+                    currentState.priority != initialState.priority ||
+                    currentState.category != initialState.category ||
+                    currentState.dueDate != initialState.dueDate ||
+                    currentState.tags != initialState.tags
+            
+            // A task is valid if it has a title AND something has been changed
+            isValid = isValid && hasChanges
+        }
+        
         _uiState.update { it.copy(isValid = isValid) }
     }
     

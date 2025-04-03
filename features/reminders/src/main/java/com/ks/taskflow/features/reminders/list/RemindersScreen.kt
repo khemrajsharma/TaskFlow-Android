@@ -124,8 +124,13 @@ fun RemindersScreen(
             // Search bar
             SearchBar(
                 query = uiState.searchQuery,
-                onQueryChange = viewModel::setSearchQuery,
-                onSearch = viewModel::setSearchQuery,
+                onQueryChange = { query ->
+                    viewModel.setSearchQuery(query)
+                },
+                onSearch = { query ->
+                    viewModel.setSearchQuery(query)
+                    searchActive = false
+                },
                 active = searchActive,
                 onActiveChange = { searchActive = it },
                 placeholder = { Text("Search reminders...") },

@@ -65,7 +65,9 @@ class RemindersViewModel @Inject constructor(
      * Sets the search query.
      */
     fun setSearchQuery(query: String) {
-        _searchQuery.value = query
+        viewModelScope.launch {
+            _searchQuery.value = query
+        }
     }
     
     /**

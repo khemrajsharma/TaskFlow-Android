@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.ks.taskflow.data.local.converter.DateTimeConverters
 import com.ks.taskflow.domain.model.Reminder
+import com.ks.taskflow.domain.model.RepeatInterval
 import java.time.LocalDateTime
 
 /**
@@ -35,6 +36,8 @@ data class ReminderEntity(
     val message: String,
     val time: LocalDateTime,
     val isEnabled: Boolean,
+    val isRepeating: Boolean = false,
+    val repeatInterval: String? = null,
     val createdAt: LocalDateTime
 ) {
     companion object {
@@ -49,6 +52,8 @@ data class ReminderEntity(
                 message = reminder.message,
                 time = reminder.time,
                 isEnabled = reminder.isEnabled,
+                isRepeating = reminder.isRepeating,
+                repeatInterval = reminder.repeatInterval?.value,
                 createdAt = reminder.createdAt
             )
         }
@@ -65,6 +70,8 @@ data class ReminderEntity(
             message = message,
             time = time,
             isEnabled = isEnabled,
+            isRepeating = isRepeating,
+            repeatInterval = repeatInterval?.let { RepeatInterval.valueOf(it.uppercase()) },
             createdAt = createdAt
         )
     }

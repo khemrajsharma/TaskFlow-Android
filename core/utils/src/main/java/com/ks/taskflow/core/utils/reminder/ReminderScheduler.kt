@@ -36,6 +36,8 @@ class ReminderScheduler @Inject constructor(
         val inputData = Data.Builder()
             .putString(ReminderConstants.REMINDER_ID_KEY, reminder.id)
             .putString(ReminderConstants.TASK_ID_KEY, reminder.taskId)
+            .putBoolean(ReminderConstants.IS_REPEATING_KEY, reminder.isRepeating)
+            .putString(ReminderConstants.REPEAT_INTERVAL_KEY, reminder.repeatInterval?.value)
             .build()
         
         val reminderWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
@@ -43,6 +45,11 @@ class ReminderScheduler @Inject constructor(
             .setInputData(inputData)
             .addTag(ReminderConstants.TAG_REMINDER)
             .addTag(reminder.id)
+            .apply {
+                if (reminder.isRepeating) {
+                    addTag(ReminderConstants.TAG_REPEATING)
+                }
+            }
             .build()
         
         workManager.enqueueUniqueWork(

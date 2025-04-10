@@ -25,6 +25,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -40,6 +41,9 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.workmanager.hilt)
     implementation(libs.workmanager.ktx)
+
+    // Core library desugaring
+    coreLibraryDesugaring(libs.desugaring.jdk)
 
     // Testing
     testImplementation(libs.junit)

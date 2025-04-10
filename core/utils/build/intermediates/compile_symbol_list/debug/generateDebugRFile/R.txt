@@ -1,1 +1,0 @@
-int drawable ic_notification 0x0

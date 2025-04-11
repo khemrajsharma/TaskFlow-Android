@@ -96,6 +96,7 @@ This project is developed by **Khemraj Sharma**, an Android Expert with 9+ years
 - **Stack Overflow:** [khemraj-sharma](https://stackoverflow.com/users/6891563/khemraj-sharma)
 - **GitHub:** [khemrajsharma](https://github.com/khemrajsharma)
 - **LinkedIn:** [khemrajsharma](https://www.linkedin.com/in/khemrajsharma/)
+- **Portfolio:** [khemrajsharma](https://khemrajsharma.com)
 
 ## License 📝
 

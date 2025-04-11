@@ -2,10 +2,6 @@
 
 A modern Android task management app showcasing multi-module architecture, Jetpack Compose, and MVVM with Clean Architecture principles.
 
-<p align="center">
-  <img src="screenshots/app_demo.gif" width="250" alt="TaskFlow App Demo">
-</p>
-
 ## Features ✨
 
 - **Task Management**: Create, edit, and organize tasks with priorities and deadlines
@@ -104,11 +100,4 @@ This project is developed by **Khemraj Sharma**, an Android Expert with 9+ years
 MIT License
 
 Copyright (c) 2025 Khemraj Sharma
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions...
 ``` 

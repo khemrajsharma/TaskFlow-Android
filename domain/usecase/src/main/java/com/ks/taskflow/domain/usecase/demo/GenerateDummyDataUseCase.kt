@@ -43,61 +43,61 @@ class GenerateDummyDataUseCase @Inject constructor(
         return listOf(
             Task(
                 id = UUID.randomUUID().toString(),
-                title = "Complete project proposal",
-                description = "Finalize the project proposal for the client meeting",
+                title = "Train my cat to do taxes",
+                description = "Mr. Whiskers needs to learn spreadsheets and tax code by April",
                 dueDate = now.plusDays(2),
                 completed = false,
                 priority = Priority.HIGH,
-                category = TaskCategory.WORK,
-                tags = listOf("Project", "Client", "Deadline"),
+                category = TaskCategory.PERSONAL,
+                tags = listOf("Pet", "Finance", "Impossible"),
                 createdAt = now.minusDays(1),
                 modifiedAt = now
             ),
             Task(
                 id = UUID.randomUUID().toString(),
-                title = "Grocery shopping",
-                description = "Buy milk, eggs, bread, and vegetables",
+                title = "Find the TV remote",
+                description = "Last seen under couch cushions, possibly migrated to another dimension",
                 dueDate = now.plusDays(1),
                 completed = false,
                 priority = Priority.MEDIUM,
-                category = TaskCategory.SHOPPING,
-                tags = listOf("Groceries", "Food"),
+                category = TaskCategory.PERSONAL,
+                tags = listOf("Home", "Mystery", "Daily"),
                 createdAt = now.minusDays(1),
                 modifiedAt = now
             ),
             Task(
                 id = UUID.randomUUID().toString(),
-                title = "Schedule dentist appointment",
-                description = "Call the dentist to schedule a cleaning appointment",
+                title = "Convince plants I'm a good caretaker",
+                description = "Apologize to surviving houseplants and promise to do better",
                 dueDate = now.plusDays(5),
                 completed = false,
                 priority = Priority.MEDIUM,
-                category = TaskCategory.HEALTH,
-                tags = listOf("Health", "Appointment"),
+                category = TaskCategory.PERSONAL,
+                tags = listOf("Plants", "Guilt", "Water"),
                 createdAt = now.minusDays(2),
                 modifiedAt = now
             ),
             Task(
                 id = UUID.randomUUID().toString(),
-                title = "Pay utility bills",
-                description = "Pay electricity, water and internet bills",
+                title = "Practice dad jokes",
+                description = "Need to improve eye-roll ratio from family members",
                 dueDate = now.plusDays(7),
                 completed = false,
                 priority = Priority.HIGH,
-                category = TaskCategory.FINANCE,
-                tags = listOf("Bills", "Monthly"),
+                category = TaskCategory.PERSONAL,
+                tags = listOf("Humor", "Family", "Cringe"),
                 createdAt = now.minusDays(3),
                 modifiedAt = now
             ),
             Task(
                 id = UUID.randomUUID().toString(),
-                title = "Clean garage",
-                description = "Sort out tools and donate unused items",
+                title = "Pretend to understand crypto",
+                description = "Memorize phrases like 'blockchain', 'to the moon', and 'HODL'",
                 dueDate = now.plusDays(10),
                 completed = false,
                 priority = Priority.LOW,
-                category = TaskCategory.PERSONAL,
-                tags = listOf("Home", "Cleaning"),
+                category = TaskCategory.FINANCE,
+                tags = listOf("Crypto", "Confusion", "Trendy"),
                 createdAt = now.minusDays(2),
                 modifiedAt = now
             )
@@ -117,8 +117,15 @@ class GenerateDummyDataUseCase @Inject constructor(
                 Reminder(
                     id = UUID.randomUUID().toString(),
                     taskId = task.id,
-                    title = "Reminder for: ${task.title}",
-                    message = "Don't forget to ${task.title.lowercase()}",
+                    title = "Hey you! Remember to: ${task.title}",
+                    message = when (index) {
+                        0 -> "Your cat's financial future depends on this!"
+                        1 -> "Have you checked between the couch cushions for the 17th time?"
+                        2 -> "Your philodendron is giving you side-eye again"
+                        3 -> "Your family is waiting to not laugh at new material"
+                        4 -> "Time to nod confidently while understanding nothing"
+                        else -> "Don't forget this extremely important thing!"
+                    },
                     time = task.dueDate?.minusHours(2) ?: now.plusDays(index.toLong() + 1),
                     isEnabled = true,
                     createdAt = now
@@ -131,8 +138,13 @@ class GenerateDummyDataUseCase @Inject constructor(
                     Reminder(
                         id = UUID.randomUUID().toString(),
                         taskId = task.id,
-                        title = "Final reminder: ${task.title}",
-                        message = "Last reminder to ${task.title.lowercase()}",
+                        title = "FINAL WARNING: ${task.title}",
+                        message = when (index) {
+                            0 -> "The IRS is less forgiving than your cat will be"
+                            2 -> "Your plants are plotting revenge. Water them NOW!"
+                            4 -> "Quick! Someone asked about NFTs! Deploy buzzwords!"
+                            else -> "This is your last chance to do the thing!"
+                        },
                         time = task.dueDate?.minusHours(1) ?: now.plusDays(index.toLong() + 1).plusHours(1),
                         isEnabled = true,
                         createdAt = now

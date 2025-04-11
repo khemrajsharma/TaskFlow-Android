@@ -64,10 +64,12 @@ The project follows Clean Architecture principles with a multi-module approach:
 ## Screenshots 📱
 
 <p align="center">
-  <img src="screenshots/task_list.png" width="220" alt="Task List">
-  <img src="screenshots/task_detail.png" width="220" alt="Task Detail">
-  <img src="screenshots/dark_mode.png" width="220" alt="Dark Mode">
-  <img src="screenshots/reminders.png" width="220" alt="Reminders">
+  <img src="screenshots/task_list_dark_theme-portrait.png" width="220" alt="Task List Dark">
+  <img src="screenshots/home_light_theme-portrait.png" width="220" alt="Home Light">
+  <img src="screenshots/task_detail_dark_theme-portrait.png" width="220" alt="Task Detail Dark">
+  <img src="screenshots/edit_task_light_theme-portrait.png" width="220" alt="Edit Task Light">
+  <img src="screenshots/reminders_list_dark_theme-portrait.png" width="220" alt="Reminders Dark">
+  <img src="screenshots/settings_page_light_theme-portrait.png" width="220" alt="Settings Light">
 </p>
 
 ## Getting Started 🚀

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -41,6 +43,9 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.workmanager.hilt)
     implementation(libs.workmanager.ktx)
+    // Hilt DI
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Core library desugaring
     coreLibraryDesugaring(libs.desugaring.jdk)

@@ -9,6 +9,7 @@ import com.ks.taskflow.core.utils.reminder.ReminderScheduler
 import com.ks.taskflow.core.utils.worker.ReminderWorker
 import com.ks.taskflow.domain.model.Reminder
 import com.ks.taskflow.domain.repository.ReminderRepository
+import dagger.Lazy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -23,9 +24,12 @@ import javax.inject.Singleton
 @Singleton
 class ReminderManager @Inject constructor(
     private val reminderRepository: ReminderRepository,
-    private val reminderScheduler: ReminderScheduler,
-    private val workManager: WorkManager
+    private val reminderSchedulerProvider: Lazy<ReminderScheduler>,
+    private val workManagerProvider: Lazy<WorkManager>
 ) {
+
+    private val reminderScheduler get() = reminderSchedulerProvider.get()
+    private val workManager get() = workManagerProvider.get()
     
     private val scope = CoroutineScope(Dispatchers.IO)
     

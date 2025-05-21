@@ -1,12 +1,11 @@
 package com.ks.taskflow.core.utils.di
 
-import android.content.Context
 import androidx.work.WorkManager
 import com.ks.taskflow.core.utils.reminder.ReminderScheduler
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -16,13 +15,8 @@ object ReminderModule {
 
     @Provides
     @Singleton
-    fun provideWorkManager(@ApplicationContext context: Context): WorkManager {
-        return WorkManager.getInstance(context)
-    }
-
-    @Provides
-    @Singleton
-    fun provideReminderScheduler(@ApplicationContext context: Context): ReminderScheduler {
-        return ReminderScheduler(context)
+    fun provideReminderScheduler(workManagerProvider: Lazy<WorkManager>): ReminderScheduler {
+        // Pass the Lazy<WorkManager> to ReminderScheduler's constructor
+        return ReminderScheduler(workManagerProvider)
     }
 } 

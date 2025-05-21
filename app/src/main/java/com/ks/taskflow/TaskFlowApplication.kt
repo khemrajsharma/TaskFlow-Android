@@ -6,6 +6,7 @@ import androidx.work.Configuration
 import com.ks.taskflow.manager.ReminderManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
+import javax.inject.Provider
 
 /**
  * Main application class for TaskFlow.
@@ -16,8 +17,9 @@ class TaskFlowApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var reminderManager: ReminderManager
 
+    // Inject a Provider for HiltWorkerFactory
     @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    lateinit var workerFactoryProvider: Provider<HiltWorkerFactory>
 
     override fun onCreate() {
         super.onCreate()
@@ -26,8 +28,10 @@ class TaskFlowApplication : Application(), Configuration.Provider {
         reminderManager.initialize()
     }
 
+    // Implement the Configuration.Provider interface
+    // Construct the Configuration directly here using the HiltWorkerFactory provider.
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
+            .setWorkerFactory(workerFactoryProvider.get())
             .build()
 }

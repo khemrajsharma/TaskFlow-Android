@@ -1,6 +1,5 @@
 package com.ks.taskflow.core.utils.reminder
 
-import android.content.Context
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -8,6 +7,7 @@ import androidx.work.WorkManager
 import com.ks.taskflow.core.utils.worker.ReminderConstants
 import com.ks.taskflow.core.utils.worker.ReminderWorker
 import com.ks.taskflow.domain.model.Reminder
+import dagger.Lazy
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
@@ -17,9 +17,9 @@ import javax.inject.Inject
  * Utility class for scheduling reminders with WorkManager.
  */
 class ReminderScheduler @Inject constructor(
-    private val context: Context
+    private val workManagerProvider: Lazy<WorkManager>
 ) {
-    private val workManager = WorkManager.getInstance(context)
+    private val workManager get() = workManagerProvider.get()
     
     /**
      * Schedules a reminder notification.

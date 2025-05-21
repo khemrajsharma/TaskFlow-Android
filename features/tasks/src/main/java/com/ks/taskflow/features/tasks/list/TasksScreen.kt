@@ -31,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -52,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ks.taskflow.core.ui.components.AddTaskFab
 import com.ks.taskflow.core.ui.components.BottomNavSpacer
+import com.ks.taskflow.core.ui.components.DockedSearchBar
 import com.ks.taskflow.core.ui.components.EmptyState
 import com.ks.taskflow.core.ui.components.TaskCard
 import com.ks.taskflow.domain.model.Priority
@@ -122,7 +122,7 @@ fun TasksScreen(
                 .padding(paddingValues)
         ) {
             // Search bar
-            SearchBar(
+            DockedSearchBar(
                 query = uiState.searchQuery,
                 onQueryChange = { query ->
                     viewModel.setSearchQuery(query)
@@ -132,7 +132,7 @@ fun TasksScreen(
                     searchActive = false
                 },
                 active = searchActive,
-                onActiveChange = { searchActive = it },
+                onActiveChange = { active -> searchActive = active },
                 placeholder = { Text("Search tasks...") },
                 leadingIcon = {
                     Icon(

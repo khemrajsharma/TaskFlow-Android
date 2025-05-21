@@ -22,8 +22,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -91,8 +91,8 @@ fun SettingsScreen(
                         checked = uiState.darkThemeEnabled,
                         onCheckedChange = { viewModel.setDarkTheme(it) }
                     )
-                    
-                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                     
                     // Dynamic colors
                     SettingsSwitch(
@@ -134,8 +134,8 @@ fun SettingsScreen(
                         checked = uiState.notificationsEnabled,
                         onCheckedChange = { viewModel.setNotificationsEnabled(it) }
                     )
-                    
-                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                     
                     // Reminder notifications
                     SettingsSwitch(

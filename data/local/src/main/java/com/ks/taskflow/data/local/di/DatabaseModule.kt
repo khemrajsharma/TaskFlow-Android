@@ -30,7 +30,7 @@ object DatabaseModule {
             TaskFlowDatabase::class.java,
             TaskFlowDatabase.DATABASE_NAME
         )
-        .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(true)
         .build()
     }
     

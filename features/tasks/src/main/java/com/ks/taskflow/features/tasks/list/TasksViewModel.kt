@@ -22,6 +22,7 @@ import javax.inject.Inject
 /**
  * ViewModel for the tasks list screen.
  */
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val getTasksUseCase: GetTasksUseCase,

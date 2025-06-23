@@ -5,6 +5,11 @@ plugins {
     alias(libs.plugins.hilt.android)
 }
 
+// Add Room schema export location
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "com.ks.taskflow.data.local"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -13,11 +18,6 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        // Add Room schema export location
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
     }
 
     lint {
@@ -36,6 +36,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.valueOf(libs.versions.sourceCompatibility.get())
         targetCompatibility = JavaVersion.valueOf(libs.versions.targetCompatibility.get())
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = libs.versions.jvmTarget.get()
@@ -47,7 +48,9 @@ android {
 
 dependencies {
     implementation(project(":domain:model"))
-    
+    // Core library desugaring
+    coreLibraryDesugaring(libs.desugaring.jdk)
+
     // Core
     implementation(libs.androidx.core.ktx)
     
